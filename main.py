@@ -84,7 +84,7 @@ class PlantroInferencePipeline:
                     "status": "success",
                     "irrigate": 0,
                     "pump_duration_minutes": 0,
-                    "message": "Soil is optimal or rain is expected."
+                   
                 }
             else:
                 # 4. Employee Model (Regressor)
@@ -95,7 +95,7 @@ class PlantroInferencePipeline:
                     "status": "success",
                     "irrigate": 1,
                     "pump_duration_minutes": final_duration,
-                    "message": "Irrigation required."
+                   
                 }
                 
         except Exception as e:
