@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 import requests
-
+import os
 
 # 1. Initialize the FastAPI Application
 
@@ -50,13 +50,14 @@ def get_weather_data(lat="26.1642", lon="32.7267"):
 class PlantroInferencePipeline:
     def __init__(self):
         try:
-            self.classifier = joblib.load('plantro_classifier.pkl')
-            self.regressor = joblib.load('plantro_regressor.pkl')
-            self.crop_encoder = joblib.load('crop_encoder.pkl')
-            self.stage_encoder = joblib.load('stage_encoder.pkl')
-            print("✅ AI Models Loaded Successfully!")
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            self.classifier = joblib.load(os.path.join(base_dir, 'plantro_classifier.pkl'))
+            self.regressor = joblib.load(os.path.join(base_dir, 'plantro_regressor.pkl'))
+            self.crop_encoder = joblib.load(os.path.join(base_dir, 'crop_encoder.pkl'))
+            self.stage_encoder = joblib.load(os.path.join(base_dir, 'stage_encoder.pkl'))
+            print(" AI Models Loaded Successfully!")
         except Exception as e:
-            print(f"❌ Error loading models. Make sure .pkl files are in the same folder. Details: {e}")
+            print(f" Error loading models. Make sure .pkl files are in the same folder. Details: {e}")
 
     def predict(self, sensor_data: dict):
         try:
